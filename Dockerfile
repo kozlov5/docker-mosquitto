@@ -33,10 +33,8 @@ RUN buildDeps='git build-base libressl-dev libwebsockets-dev c-ares-dev util-lin
     git clone git://github.com/jpmens/mosquitto-auth-plug.git && \
     cd mosquitto-auth-plug && \
     cp config.mk.in config.mk && \
-    sed -i "s/BACKEND_REDIS ?= no/BACKEND_REDIS ?= no/" config.mk && \
-    sed -i "s/BACKEND_HTTP ?= no/BACKEND_HTTP ?= no/" config.mk && \
-    sed -i "s/BACKEND_POSTGRES ?= yes/BACKEND_POSTGRES  ?= yes/" config.mk && \
-    sed -i "s/BACKEND_MYSQL ?= no/BACKEND_MYSQL ?= no/" config.mk && \
+    sed -i "s/BACKEND_HTTP ?= no/BACKEND_HTTP ?= yes/" config.mk && \
+    sed -i "s/BACKEND_POSTGRES ?= yes/BACKEND_POSTGRES  ?= no/" config.mk && \
     sed -i "s/MOSQUITTO_SRC =/MOSQUITTO_SRC = ..\//" config.mk && \
     sed -i "s/EVP_MD_CTX_new/EVP_MD_CTX_create/g" cache.c && \
     sed -i "s/EVP_MD_CTX_free/EVP_MD_CTX_destroy/g" cache.c && \
