@@ -1,7 +1,7 @@
 FROM alpine:edge
 
-EXPOSE 1883
-EXPOSE 9883
+EXPOSE 8883
+EXPOSE 9001
 
 VOLUME ["/var/lib/mosquitto", "/etc/mosquitto", "/etc/mosquitto.d"]
 
