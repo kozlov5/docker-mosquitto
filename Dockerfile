@@ -1,7 +1,7 @@
 FROM alpine:edge
 
-EXPOSE 8883
-EXPOSE 9001
+EXPOSE 1883
+EXPOSE 9883
 
 VOLUME ["/var/lib/mosquitto", "/etc/mosquitto", "/etc/mosquitto.d"]
 
@@ -20,7 +20,7 @@ RUN buildDeps='git build-base libressl-dev libwebsockets-dev c-ares-dev util-lin
     touch /var/lib/mosquitto/.keep && \
     mkdir -p /etc/mosquitto.d && \
     apk update && \
-    apk add $buildDeps postgresql libpq-dev  libwebsockets libuuid c-ares libressl curl ca-certificates && \
+    apk add $buildDeps hiredis libwebsockets libuuid c-ares libressl curl ca-certificates && \
     git clone https://github.com/eclipse/mosquitto.git && \
     cd mosquitto && \
     git checkout ${MOSQUITTO_VERSION} -b ${MOSQUITTO_VERSION} && \
@@ -33,7 +33,7 @@ RUN buildDeps='git build-base libressl-dev libwebsockets-dev c-ares-dev util-lin
     git clone git://github.com/jpmens/mosquitto-auth-plug.git && \
     cd mosquitto-auth-plug && \
     cp config.mk.in config.mk && \
-    sed -i "s/BACKEND_POSTGRES ?= no/BACKEND_POSTGRES  ?= yes/" config.mk && \
+    sed -i "s/BACKEND_REDIS ?= no/BACKEND_REDIS ?= yes/" config.mk && \
     sed -i "s/BACKEND_HTTP ?= no/BACKEND_HTTP ?= yes/" config.mk && \
     sed -i "s/BACKEND_MYSQL ?= yes/BACKEND_MYSQL ?= no/" config.mk && \
     sed -i "s/MOSQUITTO_SRC =/MOSQUITTO_SRC = ..\//" config.mk && \
